@@ -97,6 +97,21 @@ def get_adj_matrices(gene_list=None):
 
     return circuit_adj, circuit_to_pathway
 
+def build_hipathia_renamers():
+    circuit_names = read_circuit_names()
+    circuit_names = circuit_names.rename(
+        columns={"name": "circuit_name", "hipathia_id": "circuit_id"}
+    )
+    circuit_names["pathway_id"] = circuit_names["circuit_id"].str.split("-").str[1]
+    circuit_names["pathway_name"] = circuit_names["circuit_name"].str.split(":").str[0]
+    circuit_renamer = circuit_names.set_index("circuit_id")["circuit_name"].to_dict()
+    pathway_renamer = circuit_names.set_index("pathway_id")["pathway_name"].to_dict()
+    circuit_to_effector = (
+        circuit_names.set_index("circuit_name")["effector"].str.strip().to_dict()
+    )
+
+    return circuit_renamer, pathway_renamer, circuit_to_effector
+
 
 def sync_gexp_adj(gexp, adj):
     gene_list = adj.index.intersection(gexp.columns)
