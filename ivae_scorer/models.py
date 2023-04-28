@@ -1,7 +1,3 @@
-import random
-
-import numpy as np
-import tensorflow as tf
 import tensorflow.keras.backend as K
 from tensorflow.keras import losses, regularizers
 from tensorflow.keras.layers import Dense, Input, Lambda
@@ -9,6 +5,33 @@ from tensorflow.keras.models import Model
 from tensorflow.keras.optimizers import Adam
 
 from ivae_scorer.layers import Informed
+from ivae_scorer.utils import set_all_seeds
+
+
+def build_kegg_layers(circuits, pathways, act="tanh"):
+    layers = []
+
+    if circuits:
+        circuit_layer = Informed(
+            adj=circuits,
+            name="pathways",
+            activation=act,
+            activity_regularizer=regularizers.L2(1e-5),
+        )
+
+        layers.append(circuit_layer)
+
+    if pathways:
+        pathway_layer = Informed(
+            adj=pathways,
+            name="pathways",
+            activation=act,
+            activity_regularizer=regularizers.L2(1e-5),
+        )
+
+        layers.append(pathway_layer)
+
+    return layers
 
 
 def build_reactome_layers(adj, act="tanh"):
@@ -23,14 +46,15 @@ def build_reactome_layers(adj, act="tanh"):
 
 
 def build_reactome_vae(adj):
-    reactome_layers = build_reactome_layers(adj)
-    return build_vae(layers=reactome_layers, seed=42, learning_rate=1e-5)
+    layers = build_reactome_layers(adj)
+    return build_vae(layers=layers, seed=42, learning_rate=1e-5)
 
+def build_kegg_vae(circuits, pathways):
+    layers = build_kegg_layers(circuits, pathways)
+    return build_vae(layers=layers, seed=42, learning_rate=1e-5)
 
 def build_vae(layers, seed, learning_rate):
-    random.seed(seed)
-    np.random.seed(seed)
-    tf.random.set_seed(seed)
+    set_all_seeds(seed)
 
     latent_dim = layers[-1].adj.shape[1] // 2
     input_dim = layers[0].adj.shape[0]
