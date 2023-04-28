@@ -49,9 +49,11 @@ def build_reactome_vae(adj):
     layers = build_reactome_layers(adj)
     return build_vae(layers=layers, seed=42, learning_rate=1e-5)
 
+
 def build_kegg_vae(circuits, pathways):
     layers = build_kegg_layers(circuits, pathways)
     return build_vae(layers=layers, seed=42, learning_rate=1e-5)
+
 
 def build_vae(layers, seed, learning_rate):
     set_all_seeds(seed)

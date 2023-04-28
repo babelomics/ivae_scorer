@@ -97,6 +97,7 @@ def get_adj_matrices(gene_list=None):
 
     return circuit_adj, circuit_to_pathway
 
+
 def build_hipathia_renamers():
     circuit_names = read_circuit_names()
     circuit_names = circuit_names.rename(
