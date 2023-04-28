@@ -11,17 +11,17 @@ from ivae_scorer.utils import set_all_seeds
 def build_kegg_layers(circuits, pathways, act="tanh"):
     layers = []
 
-    if circuits:
+    if circuits is not None:
         circuit_layer = Informed(
             adj=circuits,
-            name="pathways",
+            name="circuits",
             activation=act,
             activity_regularizer=regularizers.L2(1e-5),
         )
 
         layers.append(circuit_layer)
 
-    if pathways:
+    if pathways is not None:
         pathway_layer = Informed(
             adj=pathways,
             name="pathways",
