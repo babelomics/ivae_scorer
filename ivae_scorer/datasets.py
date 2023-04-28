@@ -1,10 +1,14 @@
+from pathlib import Path
+
 import scanpy as sc
 
 
-def load_kang(normalize=True, n_genes=None):
+def load_kang(data_folder=".", normalize=True, n_genes=None):
+    data_folder = Path(data_folder)
     adata = sc.read(
-        "kang_counts_25k.h5ad",
+        data_folder.joinpath("kang_counts_25k.h5ad"),
         backup_url="https://figshare.com/ndownloader/files/34464122",
+        cache=True,
     )
 
     adata.obs["label"] = adata.obs["label"].replace(
