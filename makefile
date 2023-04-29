@@ -8,9 +8,8 @@ CONDA_ACTIVATE = source $$(conda info --base)/etc/profile.d/conda.sh ; conda act
 
 all: install format
 install:
-	conda env update --prune -p ${ENV_FOLDER} -f environment_nocuda.yml
+	conda env update --prune -p ${ENV_FOLDER} -f environment_pip.yml
 	$(CONDA_ACTIVATE) ${ENV_FOLDER}
-	pip install -e .
 format:
 	$(CONDA_ACTIVATE) ${ENV_FOLDER}
 	autoflake -r --in-place --remove-unused-variables --remove-all-unused-imports ivae_scorer
