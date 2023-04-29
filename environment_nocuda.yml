@@ -1,0 +1,19 @@
+channels:
+  - defaults
+dependencies:
+  - leidenalg
+  - jupyterlab
+  - autoflake
+  - tensorflow-gpu=2.10
+  - black
+  - python-dotenv
+  - scipy=1.10.1
+  - isort
+  - pylint
+  - numpy=1.23.5
+  - scanpy=1.9.3
+  - python=3.10
+  - pandas=2.0.1
+  - scikit-learn=1.2.2
+  - python-igraph
+  - seaborn=0.12
