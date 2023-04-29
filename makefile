@@ -8,7 +8,7 @@ CONDA_ACTIVATE = source $$(conda info --base)/etc/profile.d/conda.sh ; conda act
 
 all: install format
 install:
-	conda env update --prune -p ${ENV_FOLDER} -f environment.yml
+	conda env update --prune -p ${ENV_FOLDER} -f environment_nocuda.yml
 	$(CONDA_ACTIVATE) ${ENV_FOLDER}
 	pip install -e .
 format:
