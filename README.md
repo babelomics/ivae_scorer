@@ -4,7 +4,7 @@ The published paper can be found here:
 
 A preprint can be found here:
 
-![Static Badge](https://img.shields.io/badge/Zenodo-https%3A%2F%2Fzenodo.org%2Frecord%2F8378906-blue)
+[![Static Badge](https://img.shields.io/badge/Zenodo-https%3A%2F%2Fzenodo.org%2Frecord%2F8378906-blue)](https://zenodo.org/record/8378906)
 
 ## Setup
 
