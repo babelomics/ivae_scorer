@@ -45,14 +45,14 @@ def build_reactome_layers(adj, act="tanh"):
     )
 
 
-def build_reactome_vae(adj):
+def build_reactome_vae(adj, seed):
     layers = build_reactome_layers(adj)
-    return build_vae(layers=layers, seed=42, learning_rate=1e-5)
+    return build_vae(layers=layers, seed=seed, learning_rate=1e-5)
 
 
-def build_kegg_vae(circuits, pathways):
+def build_kegg_vae(circuits, pathways, seed):
     layers = build_kegg_layers(circuits, pathways)
-    return build_vae(layers=layers, seed=42, learning_rate=1e-5)
+    return build_vae(layers=layers, seed=seed, learning_rate=1e-5)
 
 
 def build_vae(layers, seed, learning_rate):
